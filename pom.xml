@@ -12,9 +12,9 @@
     </parent>
 
     <groupId>com.regis.emirrefit</groupId>
-    <artifactId>rft-batch-items</artifactId>
+    <artifactId>rft-observability-item-batch</artifactId>
     <version>1.0.0</version>
-    <name>rft-batch-items</name>
+    <name>rft-observability-item-batch</name>
     <description>EMIR REFIT — Spring Batch reporting jobs (T-32a, T-32b, etc.)</description>
 
     <properties>
