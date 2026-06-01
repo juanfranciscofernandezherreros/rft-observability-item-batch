@@ -1,0 +1,12 @@
+image: artifactory.six-group.net/maven:3.8.3-openjdk-17
+
+include:
+- project: $PIPELINE_TEMPLATES_REPO_PATH
+  ref: $PIPELINE_TEMPLATES_REPO_BRANCH
+  file: $PIPELINE_TEMPLATES_BACKEND_JAVA_FILENAME
+
+variables:
+  SERVICE_LOCATION: ''
+  HELM_CHART_VALUES_LOCATION: rft-data-bec
+  IMAGE_LOCATION: backend
+  JAVA_VERSION: 17
