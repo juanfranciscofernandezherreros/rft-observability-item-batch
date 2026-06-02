@@ -1,0 +1,61 @@
+server:
+  port: 0
+
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
+  main:
+    allow-bean-definition-overriding: true
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+emir:
+  tr-code: "TRRGS"
+  regulation-reference: "EMIR"
+  tables:
+    opr-data: "test_opr_data"
+    record-status: "test_record_status"
+    latest-trade-state: "test_latest_trade_state"
+    reports-file-outgoing: "test_reports_file_outgoing"
+    reco-status-enh-hist: "test_reco_status"
+  eea-countries:
+    - AT
+    - BE
+    - DE
+    - ES
+    - FR
+
+app:
+  impala:
+    url: "jdbc:h2:mem:dummy"
+    username: "test"
+    password: "test"
+  output:
+    delimiter: ";"
+    t32a:
+      path: "target/test-output/ITEM32A.csv"
+    t32b:
+      path: "target/test-output/ITEM32B.csv"
+    t32c:
+      path: "target/test-output/ITEM32C.csv"
+    t33a:
+      path: "target/test-output/ITEM33A.csv"
+
+batch:
+  schedule:
+    cron: "-"
+  defaults:
+    fecha: "2026-04-30"
+    endperiod: "2026-03-31"
+    t32c-startdate: "2026-01-01 00:00:00.000"
+    t32c-enddate: "2026-03-31 00:00:00.000"
+    t33a-reporting-date: "2026-04-15"
+    t33a-end-date: "2026-03-31"
