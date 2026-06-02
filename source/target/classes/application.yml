@@ -3,11 +3,13 @@ server:
 
 spring:
   application:
-    name: emir-refit-batch
+    name: rft-observability-item-batch
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
   batch:
     job:
-      name : t32aJob
-      enabled: true
+      name: t32aJob
+      enabled:  true
     jdbc:
       initialize-schema: always
   datasource:
@@ -68,8 +70,8 @@ emir:
 app:
   impala:
     url: "jdbc:impala://dh-rftemir-devint-n-master10.rftemir.iq8p-shl0.a0.cloudera.site:443/;ssl=1;transportMode=http;httpPath=dh-rftemir-devint-n/cdp-proxy-api/impala;AuthMech=3;AllowSelfSignedCerts=1"
-    username: "xxxx"
-    password: "xxxx"
+    username: "juanfrancisco.fernandez"
+    password: "#Qwerty20255Kiko?"
   output:
     delimiter: ";"
     t32a:
@@ -81,7 +83,7 @@ app:
     t33a:
       path: "./src/main/resources/TRRGS_EMIR_PR_0_ND_ITEM33A_20260415.csv"
 
-# ── Scheduler (cron de ejecuciones programadas con fechas por defecto) ──────
+# ── Scheduler ────────────────────────────────────────────────────────────────
 batch:
   schedule:
     cron: "0 0 2 * * *"
