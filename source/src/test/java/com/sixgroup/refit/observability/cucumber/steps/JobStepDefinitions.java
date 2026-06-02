@@ -46,10 +46,6 @@ public class JobStepDefinitions {
     private JobRunRequest request;
     private JobRunResponse response;
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Setup: limpieza de ficheros y configuración de mocks
-    // ─────────────────────────────────────────────────────────────────────────
-
     @Before
     public void setup() throws IOException {
         // Limpiar directorio de salida entre escenarios
@@ -63,16 +59,12 @@ public class JobStepDefinitions {
             }
         }
 
-        // Resetear mock
         reset(mockImpalaJdbcTemplate);
 
-        // ── T-32a: queryForObject devuelve Long ─────────────────────────
         when(mockImpalaJdbcTemplate.queryForObject(
                 anyString(), eq(Long.class), anyString()))
                 .thenReturn(12345L);
 
-        // ── T-32b / T-32c / T-33a: query devuelve List<ImpalaRow> ──────
-        //    Diferencia por contenido del SQL para devolver la fila correcta
         doAnswer(invocation -> {
             String sql = invocation.getArgument(0);
             if (sql.contains("COUNTERPARTY_ID")) {
@@ -91,10 +83,6 @@ public class JobStepDefinitions {
                 any(RowMapper.class));
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Given
-    // ─────────────────────────────────────────────────────────────────────────
-
     @Given("the job {string} with parameters:")
     public void theJobWithParameters(String jobName, DataTable table) {
         this.jobName = jobName;
@@ -109,19 +97,11 @@ public class JobStepDefinitions {
         request.setOutputPath(params.get("outputPath"));
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // When
-    // ─────────────────────────────────────────────────────────────────────────
-
     @When("the job is launched")
     public void theJobIsLaunched() {
         response = jobLaunchService.launch(jobName, request);
         assertNotNull(response, "La respuesta del job no debe ser null");
     }
-
-    // ─────────────────────────────────────────────────────────────────────────
-    // Then
-    // ─────────────────────────────────────────────────────────────────────────
 
     @Then("the job status is {string}")
     public void theJobStatusIs(String expectedStatus) {
@@ -174,10 +154,6 @@ public class JobStepDefinitions {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Helpers: localizar el CSV de salida
-    // ─────────────────────────────────────────────────────────────────────────
-
     private Path findCsvOutput() throws IOException {
         Path outputDir = Path.of("target/test-output");
         assertTrue(Files.exists(outputDir), "Directorio de salida no existe");
@@ -188,11 +164,6 @@ public class JobStepDefinitions {
         }
     }
 
-    // ─────────────────────────────────────────────────────────────────────────
-    // Builders de datos de prueba por job
-    // ─────────────────────────────────────────────────────────────────────────
-
-    /** T-32b: columnas que devuelve el Reader (sin las estáticas del Processor). */
     private ImpalaRow buildT32bRow() {
         ImpalaRow row = new ImpalaRow();
         row.put("COUNTERPARTY_ID", "LEI1234567890");
@@ -204,7 +175,6 @@ public class JobStepDefinitions {
         return row;
     }
 
-    /** T-32c: columnas que devuelve el Reader (antes de las transformaciones del Processor). */
     private ImpalaRow buildT32cRow() {
         ImpalaRow row = new ImpalaRow();
         row.put("TR_CODE", "TRRGS");
@@ -222,7 +192,6 @@ public class JobStepDefinitions {
         return row;
     }
 
-    /** T-33a: columnas que devuelve el Reader (antes del Processor). */
     private ImpalaRow buildT33aRow() {
         ImpalaRow row = new ImpalaRow();
         row.put("REPORTING_TR_CODE", "TRRGS");

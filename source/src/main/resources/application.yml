@@ -70,8 +70,8 @@ emir:
 app:
   impala:
     url: "jdbc:impala://dh-rftemir-devint-n-master10.rftemir.iq8p-shl0.a0.cloudera.site:443/;ssl=1;transportMode=http;httpPath=dh-rftemir-devint-n/cdp-proxy-api/impala;AuthMech=3;AllowSelfSignedCerts=1"
-    username: "juanfrancisco.fernandez"
-    password: "#Qwerty20255Kiko?"
+    username: ""
+    password: ""
   output:
     delimiter: ";"
     t32a:
