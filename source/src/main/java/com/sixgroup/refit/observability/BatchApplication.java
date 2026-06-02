@@ -32,7 +32,6 @@ public class BatchApplication {
 
         private final JobLaunchService jobLaunchService;
 
-        // Spring Boot ya expone el nombre del job con esta property
         @Value("${spring.batch.job.name:}")
         private String jobName;
 
