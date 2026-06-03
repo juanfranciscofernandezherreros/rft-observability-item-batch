@@ -68,20 +68,19 @@ emir:
 app:
   impala:
     url: "jdbc:impala://dh-rftemir-devint-n-master10.rftemir.iq8p-shl0.a0.cloudera.site:443/;ssl=1;transportMode=http;httpPath=dh-rftemir-devint-n/cdp-proxy-api/impala;AuthMech=3;AllowSelfSignedCerts=1"
-    username: "xxxx"
-    password: "xxxx"
+    username: "xxx"
+    password: "xxx"
   output:
     delimiter: ";"
     t32a:
-      path: "./src/main/resources/TRRGS_EMIR_PR_0_ND_ITEM32A_20260430.csv"
+      path: "./source/main/resources/TRRGS_EMIR_PR_0_ND_ITEM32A_20260430.csv"
     t32b:
-      path: "./src/main/resources/TRRGS_EMIR_PR_0_ND_ITEM32B_20260430.csv"
+      path: "./source/main/resources/TRRGS_EMIR_PR_0_ND_ITEM32B_20260430.csv"
     t32c:
-      path: "./src/main/resources/TRRGS_EMIR_PR_0_ND_ITEM32C_20260430.csv"
+      path: "./source/main/resources/TRRGS_EMIR_PR_0_ND_ITEM32C_20260430.csv"
     t33a:
-      path: "./src/main/resources/TRRGS_EMIR_PR_0_ND_ITEM33A_20260415.csv"
+      path: "./source/main/resources/TRRGS_EMIR_PR_0_ND_ITEM33A_20260415.csv"
 
-# ── Scheduler (cron de ejecuciones programadas con fechas por defecto) ──────
 batch:
   schedule:
     cron: "0 0 2 * * *"
