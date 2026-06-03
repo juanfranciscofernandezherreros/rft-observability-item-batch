@@ -7,10 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="rft-observability-item-batch" />
+        <module name="rft-observability-item-batch (1) (com.regis.emirrefit)" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="rft-observability-item-batch (1) (com.regis.emirrefit)" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>
