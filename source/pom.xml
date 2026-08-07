@@ -3,19 +3,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.4.0</version>
-        <relativePath/>
+        <groupId>com.sixgroup.refit.common.base</groupId>
+        <artifactId>rft-common-base-parent-featured</artifactId>
+        <version>1.3.0</version>
     </parent>
-    <groupId>com.spring.batch.demo</groupId>
-    <artifactId>batch-processing-demo</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>batch-processing-demo</name>
-    <description>Demo project for Spring Batch</description>
+
+    <groupId>com.regis.emirrefit</groupId>
+    <artifactId>rft-batch-items</artifactId>
+    <version>1.0.0</version>
+    <name>rft-batch-items</name>
+    <description>EMIR REFIT — Spring Batch reporting jobs (T-32a, T-32b, etc.)</description>
+
     <properties>
         <java.version>17</java.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
