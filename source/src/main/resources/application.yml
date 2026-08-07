@@ -6,13 +6,13 @@ spring:
     url: jdbc:h2:mem:testdb
     username: sa
     password: ""
+    driver-class-name: org.h2.Driver
 
   batch:
     jdbc:
       initialize-schema: always
     job:
-      enabled: true
-      name: job2
+      enabled: false
 
 server:
   port: 9001
