@@ -1,8 +1,7 @@
 package com.sixgroup.refit.observability.sql;
 
 import com.sixgroup.refit.observability.config.DatasourceSchemaProperties;
-import com.sixgroup.refit.observability.config.Item32Properties;
-import com.sixgroup.refit.observability.model.Item32AData;
+import com.sixgroup.refit.observability.dto.Item32ACountsDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -14,11 +13,10 @@ import org.springframework.stereotype.Service;
 public class Item32ADataFinderService {
 
     private final JdbcTemplate jdbcTemplate;
-    private final Item32Properties item32Properties;
     private final DatasourceSchemaProperties schemaProperties;
 
-    public Item32AData find(final String endPeriod, final String reportingDate) {
-        log.trace("Running Item T32A for endPeriod: {}", endPeriod);
+    public Item32ACountsDto fetchCounts(final String endPeriod) {
+        log.trace("Running Item T32A raw counts query for endPeriod: {}", endPeriod);
 
         // ===================================
         // Query 1: TOTAL_NR_TRADES_RECEIVED_FROM_START
@@ -37,8 +35,6 @@ public class Item32ADataFinderService {
         Long tradesFromImpala = jdbcTemplate.queryForObject(query1, Long.class, endPeriod);
         tradesFromImpala = (tradesFromImpala != null) ? tradesFromImpala : 0L;
 
-        final long totalNrTrades = tradesFromImpala + item32Properties.getItem32Aproperties().getInitialTotalTradesNew();
-
         // ===================================
         // Query 2: TOTAL_NR_REPORTS_RECEIVED_FROM_START
         // ===================================
@@ -55,15 +51,12 @@ public class Item32ADataFinderService {
         Long reportsFromKudu = jdbcTemplate.queryForObject(query2, Long.class, endPeriod);
         reportsFromKudu = (reportsFromKudu != null) ? reportsFromKudu : 0L;
 
-        final long totalNrReports = reportsFromKudu + item32Properties.getItem32Aproperties().getInitialTotalTradesAll();
+        final Item32ACountsDto counts = Item32ACountsDto.builder()
+                .tradesFromImpala(tradesFromImpala)
+                .reportsFromKudu(reportsFromKudu)
+                .build();
 
-        final Item32AData item32AData = Item32AData.builder()
-            .reportingDate(reportingDate)
-            .totalNrTrades(totalNrTrades)
-            .totalNrReports(totalNrReports)
-            .build();
-
-        log.trace("Item32AData generated successfully: {}", item32AData);
-        return item32AData;
+        log.trace("Item32A raw counts fetched successfully: {}", counts);
+        return counts;
     }
 }

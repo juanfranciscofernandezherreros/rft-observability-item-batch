@@ -16,3 +16,29 @@ spring:
 
 server:
   port: 9001
+
+component-config:
+  kududb:
+    control-refit-schema: PUBLIC
+    transc-schema: PUBLIC
+    account-mng: PUBLIC
+
+  item32:
+    tr-code: REFIT
+    regulation-reference: EMIR_REFIT
+    item32aproperties:
+      initial-total-trades-new: 0
+      initial-total-trades-all: 0
+      file-name-pattern: "item32a_%s.csv"
+    item32bproperties:
+      file-name-pattern: "item32b_%s.csv"
+    item32c:
+      file-name-pattern: "item32c_%s.csv"
+
+app:
+  jobs:
+    t32a:
+      end-period: "2026-03-31"
+      reporting-date: "2026-04-30"
+  output:
+    t32a-csv: output/item32a-output.csv
