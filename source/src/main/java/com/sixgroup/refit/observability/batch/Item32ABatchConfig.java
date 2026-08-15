@@ -3,7 +3,10 @@ package com.sixgroup.refit.observability.batch;
 import com.sixgroup.refit.observability.config.Item32Properties;
 import com.sixgroup.refit.observability.dto.Item32ACountsDto;
 import com.sixgroup.refit.observability.model.Item32AData;
+import com.sixgroup.refit.observability.processor.Item32AProcessor;
+import com.sixgroup.refit.observability.reader.Item32AReader;
 import com.sixgroup.refit.observability.sql.Item32ADataFinderService;
+import com.sixgroup.refit.observability.writer.Item32ACsvWriterFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -14,16 +17,16 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
-import org.springframework.batch.item.file.transform.BeanWrapperFieldExtractor;
-import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
+/**
+ * Wires the T32A job: reader ({@link Item32AReader}) runs the Impala/Kudu
+ * query, processor ({@link Item32AProcessor}) maps the DTO into the entity,
+ * writer ({@link Item32ACsvWriterFactory}) writes it out as CSV.
+ */
 @Configuration
 @RequiredArgsConstructor
 public class Item32ABatchConfig {
@@ -31,28 +34,13 @@ public class Item32ABatchConfig {
     private final Item32ADataFinderService item32ADataFinderService;
     private final Item32Properties item32Properties;
 
-    /**
-     * The reader IS the Item T32A query: it delegates to
-     * {@link Item32ADataFinderService#fetchCounts}, which runs the two
-     * Impala COUNT queries, and hands the single raw-counts DTO to the
-     * step once before signalling end-of-data.
-     */
     @Bean
     @StepScope
     public ItemReader<Item32ACountsDto> t32aReader(
             @Value("#{jobParameters['endPeriod']}") String endPeriod) {
-        AtomicBoolean alreadyRead = new AtomicBoolean(false);
-        return () -> {
-            if (alreadyRead.compareAndSet(false, true)) {
-                return item32ADataFinderService.fetchCounts(endPeriod);
-            }
-            return null;
-        };
+        return new Item32AReader(item32ADataFinderService, endPeriod);
     }
 
-    /**
-     * Converts the raw Kudu/Impala counts DTO into the Item32AData entity.
-     */
     @Bean
     @StepScope
     public ItemProcessor<Item32ACountsDto, Item32AData> t32aProcessor(
@@ -64,19 +52,7 @@ public class Item32ABatchConfig {
     @StepScope
     public FlatFileItemWriter<Item32AData> t32aCsvWriter(
             @Value("#{jobParameters['outputPath'] ?: '${app.output.t32a-csv:output/item32a-output.csv}'}") String outputPath) {
-        FlatFileItemWriter<Item32AData> writer = new FlatFileItemWriter<>();
-        writer.setResource(new FileSystemResource(outputPath));
-        writer.setHeaderCallback(w -> w.write("ReportingDate,TotalNrTrades,TotalNrReports"));
-
-        BeanWrapperFieldExtractor<Item32AData> fieldExtractor = new BeanWrapperFieldExtractor<>();
-        fieldExtractor.setNames(new String[] {"reportingDate", "totalNrTrades", "totalNrReports"});
-
-        DelimitedLineAggregator<Item32AData> lineAggregator = new DelimitedLineAggregator<>();
-        lineAggregator.setDelimiter(",");
-        lineAggregator.setFieldExtractor(fieldExtractor);
-
-        writer.setLineAggregator(lineAggregator);
-        return writer;
+        return Item32ACsvWriterFactory.create(outputPath);
     }
 
     @Bean

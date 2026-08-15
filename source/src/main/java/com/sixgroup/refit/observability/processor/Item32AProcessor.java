@@ -1,4 +1,4 @@
-package com.sixgroup.refit.observability.batch;
+package com.sixgroup.refit.observability.processor;
 
 import com.sixgroup.refit.observability.config.Item32Properties;
 import com.sixgroup.refit.observability.dto.Item32ACountsDto;
