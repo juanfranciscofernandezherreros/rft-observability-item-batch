@@ -46,7 +46,7 @@ public class DatasourceKuduConfig {
         objectObjectHashMap.put(DatasourceKuduProperties.HIBERNATE_DDL_AUTO, properties.getDdlAuto());
         return builder
             .dataSource(dataSource)
-            .persistenceUnit(properties.getPersistenceUnit())
+            .packages("com.sixgroup.refit.observability")
             .properties(objectObjectHashMap)
             .build();
     }

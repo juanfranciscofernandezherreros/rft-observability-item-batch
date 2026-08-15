@@ -1,0 +1,9 @@
+target/
+output/
+.git/
+.idea/
+.vscode/
+*.iml
+*.log
+.env
+.flattened-pom.xml

@@ -84,3 +84,51 @@ No parametrizado (lógica de negocio del reporte):
 JobScheduler lanza los 4 jobs con las fechas por defecto de batch.defaults.*
 según el cron batch.schedule.cron (por defecto 02:00 cada día). Reutiliza el
 mismo JobLaunchService que la API.
+
+## Docker
+
+> Estado actual del código: solo el job T-32a está implementado (reader =
+> consulta Impala/Kudu, processor = mapeo DTO → entidad, writer = CSV), y se
+> lanza automáticamente al arrancar (`JobRunnerConfig`), no vía API — el
+> resto de esta sección de README (API REST, scheduler) es el diseño
+> objetivo, aún no implementado. La app escucha en el puerto **9001**, no
+> 8080. Al completar el job, el proceso llama a `System.exit()`: el
+> contenedor arranca, ejecuta el job y termina con código 0 — es el
+> comportamiento esperado de un job batch, no un fallo.
+
+### Prerrequisitos
+
+- Docker y Docker Compose.
+
+### Variables de entorno
+
+Copia `.env.example` a `.env` y ajusta si hace falta:
+
+| Variable | Descripción | Por defecto |
+|----------|-------------|-------------|
+| `APP_PORT` | Puerto expuesto en el host | `9001` |
+| `SPRING_DATASOURCE_URL/USERNAME/PASSWORD` | Datasource principal (JdbcTemplate, repositorio de Spring Batch) | H2 en memoria |
+| `SPRING_DATASOURCE_KUDUDB_JDBC_URL/USERNAME/PASSWORD` | Datasource de `DatasourceKuduConfig`; apúntalo a Impala/Kudu real en un entorno de verdad | H2 en memoria |
+| `APP_JOBS_T32A_END_PERIOD` / `APP_JOBS_T32A_REPORTING_DATE` | Parámetros del job T-32a | `2026-03-31` / `2026-04-30` |
+
+Ningún secreto real debe ir en `.env.example`; `.env` está en `.gitignore`.
+
+### Comandos
+
+    docker compose build
+    docker compose up -d
+    docker compose ps
+    docker compose logs -f app
+    docker compose down
+
+Reset completo (borra también los volúmenes/datos locales):
+
+    docker compose down -v
+
+### Verificación
+
+- El CSV generado aparece en `./output/item32a-output.csv` (montado desde el
+  contenedor).
+- Mientras el contenedor está arriba: `curl http://localhost:9001/actuator/health`.
+- `docker compose ps` mostrará `Exited (0)` tras completar el job — así se
+  confirma que terminó bien, no que algo falló.

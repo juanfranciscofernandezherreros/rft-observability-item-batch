@@ -7,6 +7,13 @@ spring:
     username: sa
     password: ""
     driver-class-name: org.h2.Driver
+    kududb:
+      jdbc-url: jdbc:h2:mem:kududb;DB_CLOSE_DELAY=-1
+      username: sa
+      password: ""
+      driver-class-name: org.h2.Driver
+      dialect: org.hibernate.dialect.H2Dialect
+      ddl-auto: none
 
   batch:
     jdbc:
@@ -16,6 +23,15 @@ spring:
 
 server:
   port: 9001
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: when-authorized
 
 component-config:
   kududb:
