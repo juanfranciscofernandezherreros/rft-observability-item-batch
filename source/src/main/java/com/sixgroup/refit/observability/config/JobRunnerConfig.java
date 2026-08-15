@@ -35,10 +35,9 @@ public class JobRunnerConfig {
 
             JobExecution execution = jobLauncher.run(t32aJob, jobParameters);
 
-            if (execution.getStatus() == BatchStatus.COMPLETED) {
-                int exitCode = SpringApplication.exit(applicationContext);
-                System.exit(exitCode);
-            }
+            int exitCode = SpringApplication.exit(applicationContext,
+                    () -> execution.getStatus() == BatchStatus.COMPLETED ? 0 : 1);
+            System.exit(exitCode);
         };
     }
 }
