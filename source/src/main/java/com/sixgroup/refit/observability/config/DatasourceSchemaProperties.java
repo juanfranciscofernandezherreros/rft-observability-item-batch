@@ -14,7 +14,4 @@ public class DatasourceSchemaProperties {
 
     @NotNull
     private String transcSchema;
-
-    @NotNull
-    private String accountMng;
 }

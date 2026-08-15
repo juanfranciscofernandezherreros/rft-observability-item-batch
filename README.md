@@ -107,8 +107,7 @@ Copia `.env.example` a `.env` y ajusta si hace falta:
 | Variable | Descripción | Por defecto |
 |----------|-------------|-------------|
 | `APP_PORT` | Puerto expuesto en el host | `9001` |
-| `SPRING_DATASOURCE_URL/USERNAME/PASSWORD` | Datasource principal (JdbcTemplate, repositorio de Spring Batch) | H2 en memoria |
-| `SPRING_DATASOURCE_KUDUDB_JDBC_URL/USERNAME/PASSWORD` | Datasource de `DatasourceKuduConfig`; apúntalo a Impala/Kudu real en un entorno de verdad | H2 en memoria |
+| `SPRING_DATASOURCE_URL/USERNAME/PASSWORD` | Datasource único (JdbcTemplate, repositorio de Spring Batch, consultas T-32a); apúntalo a Impala/Kudu real en un entorno de verdad | H2 en memoria |
 | `APP_JOBS_T32A_END_PERIOD` / `APP_JOBS_T32A_REPORTING_DATE` | Parámetros del job T-32a | `2026-03-31` / `2026-04-30` |
 
 Ningún secreto real debe ir en `.env.example`; `.env` está en `.gitignore`.

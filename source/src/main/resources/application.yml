@@ -7,13 +7,6 @@ spring:
     username: sa
     password: ""
     driver-class-name: org.h2.Driver
-    kududb:
-      jdbc-url: jdbc:h2:mem:kududb;DB_CLOSE_DELAY=-1
-      username: sa
-      password: ""
-      driver-class-name: org.h2.Driver
-      dialect: org.hibernate.dialect.H2Dialect
-      ddl-auto: none
 
   batch:
     jdbc:
@@ -37,19 +30,11 @@ component-config:
   kududb:
     control-refit-schema: PUBLIC
     transc-schema: PUBLIC
-    account-mng: PUBLIC
 
   item32:
-    tr-code: REFIT
-    regulation-reference: EMIR_REFIT
     item32aproperties:
       initial-total-trades-new: 0
       initial-total-trades-all: 0
-      file-name-pattern: "item32a_%s.csv"
-    item32bproperties:
-      file-name-pattern: "item32b_%s.csv"
-    item32c:
-      file-name-pattern: "item32c_%s.csv"
 
 app:
   jobs:

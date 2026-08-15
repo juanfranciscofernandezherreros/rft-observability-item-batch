@@ -24,9 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Boots only the T32A batch slice (reader = SQL query via
- * {@link Item32ADataFinderService}, writer = CSV) against H2, deliberately
- * excluding {@code DatasourceKuduConfig} which requires a real Kudu/Impala
- * connection that isn't available in this environment.
+ * {@link Item32ADataFinderService}, writer = CSV) against H2.
  */
 @SpringBatchTest
 @SpringBootTest(classes = {
@@ -38,14 +36,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @TestPropertySource(properties = {
         "component-config.kududb.control-refit-schema=PUBLIC",
         "component-config.kududb.transc-schema=PUBLIC",
-        "component-config.kududb.account-mng=PUBLIC",
-        "component-config.item32.tr-code=REFIT",
-        "component-config.item32.regulation-reference=EMIR_REFIT",
         "component-config.item32.item32aproperties.initial-total-trades-new=0",
         "component-config.item32.item32aproperties.initial-total-trades-all=0",
-        "component-config.item32.item32aproperties.file-name-pattern=item32a_%s.csv",
-        "component-config.item32.item32bproperties.file-name-pattern=item32b_%s.csv",
-        "component-config.item32.item32c.file-name-pattern=item32c_%s.csv",
         "app.output.t32a-csv=target/test-output/item32a-output.csv"
 })
 class Item32ABatchConfigTest {
