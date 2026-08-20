@@ -7,9 +7,9 @@ import org.springframework.batch.core.job.builder.JobBuilder;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.repeat.RepeatStatus;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -21,24 +21,23 @@ import java.sql.Connection;
 @Configuration
 public class SqlBatchConfig {
 
-    @Value("${batch.sql.input:classpath:/local-input.sql}")
-    private Resource sqlFile;
+    private static final Resource ITEM32C_SQL = new ClassPathResource("local-input.sql");
 
     @Bean
-    public Step sqlStep(
+    public Step item32cStep(
             JobRepository jobRepository,
             PlatformTransactionManager transactionManager,
             DataSource dataSource) {
 
-        return new StepBuilder("sqlStep", jobRepository)
+        return new StepBuilder("item32cStep", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
-                    if (!sqlFile.exists()) {
-                        throw new IllegalStateException("SQL file not found: " + sqlFile.getDescription());
+                    if (!ITEM32C_SQL.exists()) {
+                        throw new IllegalStateException("SQL file not found: " + ITEM32C_SQL.getDescription());
                     }
 
-                    log.info("Executing SQL file: {}", sqlFile.getDescription());
+                    log.info("Executing item32c SQL file: {}", ITEM32C_SQL.getDescription());
                     try (Connection connection = dataSource.getConnection()) {
-                        ScriptUtils.executeSqlScript(connection, sqlFile);
+                        ScriptUtils.executeSqlScript(connection, ITEM32C_SQL);
 
                         try (var statement = connection.createStatement();
                              var resultSet = statement.executeQuery(
@@ -49,7 +48,7 @@ public class SqlBatchConfig {
                             }
                         }
                     }
-                    log.info("SQL file executed successfully");
+                    log.info("item32c SQL executed successfully");
 
                     return RepeatStatus.FINISHED;
                 }, transactionManager)
@@ -57,9 +56,9 @@ public class SqlBatchConfig {
     }
 
     @Bean
-    public Job sqlJob(JobRepository jobRepository, Step sqlStep) {
-        return new JobBuilder("sqlJob", jobRepository)
-                .start(sqlStep)
+    public Job item32c(JobRepository jobRepository, Step item32cStep) {
+        return new JobBuilder("item32c", jobRepository)
+                .start(item32cStep)
                 .build();
     }
 }
