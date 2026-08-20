@@ -18,18 +18,14 @@ public class JobRunnerConfig {
     @Bean
     public CommandLineRunner runJob(
             JobLauncher jobLauncher,
-            @Qualifier("job2") Job job2,
+            @Qualifier("sqlJob") Job sqlJob,
             ApplicationContext applicationContext) {
 
         return args -> {
+            JobExecution execution = jobLauncher.run(sqlJob, new JobParameters());
 
-            JobExecution execution =
-                    jobLauncher.run(job2, new JobParameters());
-
-            if (execution.getStatus() == BatchStatus.COMPLETED) {
-                int exitCode = SpringApplication.exit(applicationContext);
-                System.exit(exitCode);
-            }
+            int exitCode = execution.getStatus() == BatchStatus.COMPLETED ? 0 : 1;
+            SpringApplication.exit(applicationContext, () -> exitCode);
         };
     }
 }
