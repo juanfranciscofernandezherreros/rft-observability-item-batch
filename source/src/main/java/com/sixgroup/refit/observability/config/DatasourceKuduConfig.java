@@ -3,6 +3,7 @@ package com.sixgroup.refit.observability.config;
 import jakarta.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
+@ConditionalOnProperty(prefix = "spring.datasource.kududb", name = "jdbc-url")
 @EnableJpaRepositories(
     entityManagerFactoryRef = "kudurc-em",
     transactionManagerRef = "kudurc-trm",
