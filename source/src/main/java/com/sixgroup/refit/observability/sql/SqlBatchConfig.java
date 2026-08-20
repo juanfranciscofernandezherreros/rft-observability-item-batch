@@ -39,6 +39,15 @@ public class SqlBatchConfig {
                     log.info("Executing SQL file: {}", sqlFile.getDescription());
                     try (Connection connection = dataSource.getConnection()) {
                         ScriptUtils.executeSqlScript(connection, sqlFile);
+
+                        try (var statement = connection.createStatement();
+                             var resultSet = statement.executeQuery(
+                                     "SELECT COUNT(*) FROM emir_refit_mbt_account_mng.regu_report")) {
+                            if (resultSet.next()) {
+                                long count = resultSet.getLong(1);
+                                log.info("Rows in emir_refit_mbt_account_mng.regu_report: {}", count);
+                            }
+                        }
                     }
                     log.info("SQL file executed successfully");
 
