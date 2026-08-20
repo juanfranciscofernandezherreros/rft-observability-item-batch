@@ -19,9 +19,5 @@ spring:
     job:
       enabled: false
 
-batch:
-  sql:
-    input: ${BATCH_SQL_INPUT:classpath:/local-input.sql}
-
 server:
   port: 9001
