@@ -21,7 +21,7 @@ import java.sql.Connection;
 @Configuration
 public class SqlBatchConfig {
 
-    private static final Resource ITEM32C_SQL = new ClassPathResource("local-input.sql");
+    private static final Resource ITEM32C_SQL = new ClassPathResource("item32c.sql");
 
     @Bean
     public Step item32cStep(
