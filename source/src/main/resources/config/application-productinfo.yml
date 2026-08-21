@@ -1,0 +1,11 @@
+#=========================
+# (dynamic logging properties)
+#=========================
+info:
+  product:
+    name: "EMIR REFIT"
+    application: A0990
+    component: "@project.artifactId@"
+    vendor: SIX
+    final-name: "@project.build.finalName@"
+    version: "@project.version@"

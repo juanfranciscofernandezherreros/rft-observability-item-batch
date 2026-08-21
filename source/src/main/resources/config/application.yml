@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: batch-processing-demo
+
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MySQL
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+
+    kududb:
+      jdbc-url: jdbc:impala://HOST:PORT/DEFAULT
+      username: TU_USUARIO
+      password: TU_PASSWORD
+      driver-class-name: com.cloudera.impala.jdbc.Driver
+      dialect: org.hibernate.dialect.H2Dialect
+      ddl-auto: none
+      persistence-unit: kududb
+
+  sql:
+    init:
+      mode: none
+      schema-locations: classpath:/schema.sql
+
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: true
+
+item32c:
+  csv-resource: classpath:item32c.csv
+  target-table: emir_refit_mbt_account_mng.regu_report
+  chunk-size: 100
+
