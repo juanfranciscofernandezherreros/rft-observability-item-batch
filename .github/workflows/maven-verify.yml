@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - feature/item32c-sql-batch
+  pull_request:
+    branches:
+      - master
   workflow_dispatch:
 
 jobs:
