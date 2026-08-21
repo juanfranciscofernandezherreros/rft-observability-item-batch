@@ -14,7 +14,7 @@
     <version>${revision}${sha1}${changelist}</version>
 
     <properties>
-        <revision>0.0.1</revision>
+        <revision>0.2.1</revision>
         <sha1></sha1>
         <changelist>-SNAPSHOT</changelist>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -31,16 +31,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.sixgroup.refit.common.base</groupId>
+            <artifactId>rft-common-base-starter-server-backend</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-batch</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
