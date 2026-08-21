@@ -48,7 +48,7 @@ public class SqlBatchConfig {
     @Bean
     public Step item32cStep(
             JobRepository jobRepository,
-            PlatformTransactionManager transactionManager,
+            @Qualifier("kudurc-trm") PlatformTransactionManager transactionManager,
             ItemReader<Item32CRow> item32cReader,
             ItemProcessor<Item32CRow, Item32CRow> item32cProcessor,
             ItemWriter<Item32CRow> item32cWriter,
