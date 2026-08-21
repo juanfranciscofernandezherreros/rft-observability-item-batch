@@ -8,6 +8,19 @@ spring:
     password: ""
     driver-class-name: org.h2.Driver
 
+    # Local Item32C datasource. DatasourceKuduConfig is conditional on
+    # spring.datasource.kududb.jdbc-url and exposes it as "kudurc-ds".
+    # Point it to the same in-memory H2 database so SqlBatchConfig and the
+    # item32c Job are available when running the service locally.
+    kududb:
+      jdbc-url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MySQL
+      username: sa
+      password: ""
+      driver-class-name: org.h2.Driver
+      dialect: org.hibernate.dialect.H2Dialect
+      ddl-auto: none
+      persistence-unit: item32c-local
+
   sql:
     init:
       mode: always
