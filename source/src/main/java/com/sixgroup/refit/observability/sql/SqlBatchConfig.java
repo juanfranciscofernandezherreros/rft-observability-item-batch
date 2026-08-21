@@ -1,6 +1,5 @@
 package com.sixgroup.refit.observability.sql;
 
-import com.sixgroup.refit.observability.csv.Item32CCsvConverter;
 import com.sixgroup.refit.observability.model.Item32CRow;
 import com.sixgroup.refit.observability.processor.Item32CProcessor;
 import com.sixgroup.refit.observability.reader.Item32CReader;
@@ -18,6 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.Resource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
@@ -27,13 +27,9 @@ import javax.sql.DataSource;
 public class SqlBatchConfig {
 
     @Bean
-    public Item32CCsvConverter item32cCsvConverter() {
-        return new Item32CCsvConverter();
-    }
-
-    @Bean
-    public ItemReader<Item32CRow> item32cReader(Item32CCsvConverter converter) {
-        return new Item32CReader(converter.convertToCsv());
+    public ItemReader<Item32CRow> item32cReader(
+            @Value("${item32c.csv-resource:classpath:item32c.csv}") Resource csvResource) {
+        return new Item32CReader(csvResource);
     }
 
     @Bean

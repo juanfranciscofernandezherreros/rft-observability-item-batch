@@ -1,6 +1,5 @@
 package com.sixgroup.refit.observability.writer;
 
-import com.sixgroup.refit.observability.csv.Item32CCsvConverter;
 import com.sixgroup.refit.observability.model.Item32CRow;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.Chunk;
@@ -17,6 +16,7 @@ import java.util.List;
 @Slf4j
 public class Item32CWriter implements ItemWriter<Item32CRow> {
 
+    private static final String NULL_TOKEN = "\\N";
     private static final String COLUMNS = "(regulatorid,reportcode,queryid,channel,reporttype,deliverydatefrom,deliverydateto,inserttmstmp,reportschedule,reportfrequencydaily,reportfrequencymonth,lastdayofmonth,reportformat,reportstatus,`partition`)";
     private static final String VALUES = " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
@@ -78,7 +78,7 @@ public class Item32CWriter implements ItemWriter<Item32CRow> {
     }
 
     private static boolean isNull(String value) {
-        return value == null || Item32CCsvConverter.NULL_TOKEN.equals(value);
+        return value == null || NULL_TOKEN.equals(value);
     }
 
     private static String validateTable(String targetTable) {
