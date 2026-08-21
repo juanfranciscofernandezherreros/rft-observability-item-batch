@@ -1,0 +1,16 @@
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\config\DatasourceKuduProperties.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\csv\MarketDataFieldSetMapper.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\reader\Item32CReader.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\model\Item32CRow.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\csv\CSVBatchConfig.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\config\Item32Properties.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\sql\SqlBatchConfig.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\processor\Item32CProcessor.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\writer\Item32CWriter.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\sql\Item32ADataFinderService.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\config\DatasourceKuduConfig.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\csv\MarketDataPojo.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\model\Item32AData.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\config\JobRunnerConfig.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\BatchProcessingDemoApplication.java
+C:\Develop\rft-observability-item-batch\source\src\main\java\com\sixgroup\refit\observability\config\DatasourceSchemaProperties.java

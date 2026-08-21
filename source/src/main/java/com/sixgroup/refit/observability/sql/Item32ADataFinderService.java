@@ -1,12 +1,14 @@
 package com.sixgroup.refit.observability.sql;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
+
 import com.sixgroup.refit.observability.config.DatasourceSchemaProperties;
 import com.sixgroup.refit.observability.config.Item32Properties;
 import com.sixgroup.refit.observability.model.Item32AData;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
@@ -58,10 +60,10 @@ public class Item32ADataFinderService {
         final long totalNrReports = reportsFromKudu + item32Properties.getItem32Aproperties().getInitialTotalTradesAll();
 
         final Item32AData item32AData = Item32AData.builder()
-            .reportingDate(reportingDate)
-            .totalNrTrades(totalNrTrades)
-            .totalNrReports(totalNrReports)
-            .build();
+                .reportingDate(reportingDate)
+                .totalNrTrades(totalNrTrades)
+                .totalNrReports(totalNrReports)
+                .build();
 
         log.trace("Item32AData generated successfully: {}", item32AData);
         return item32AData;

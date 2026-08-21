@@ -22,7 +22,7 @@ public class CSVBatchConfig {
     private Resource csv_file;
 
     @Bean
-    public ItemReader<MarketDataPojo> csvReader(){
+    public ItemReader<MarketDataPojo> csvReader() {
         FlatFileItemReader<MarketDataPojo> reader = new FlatFileItemReader<MarketDataPojo>();
         reader.setLinesToSkip(1);
         reader.setResource(csv_file);
@@ -36,8 +36,8 @@ public class CSVBatchConfig {
     }
 
     @Bean
-    public Step step_first(JobRepository jobRepository, PlatformTransactionManager transactionManager){
-        return new StepBuilder("step_first",jobRepository).<MarketDataPojo, MarketDataPojo>chunk(4, transactionManager)
+    public Step step_first(JobRepository jobRepository, PlatformTransactionManager transactionManager) {
+        return new StepBuilder("step_first", jobRepository).<MarketDataPojo, MarketDataPojo>chunk(4, transactionManager)
                 .reader(csvReader())
                 .writer(chunk -> {
                     System.out.println("Chunk Start");
@@ -53,6 +53,5 @@ public class CSVBatchConfig {
                 .start(step_first(jobRepository, transactionManager))
                 .build();
     }
-
 
 }

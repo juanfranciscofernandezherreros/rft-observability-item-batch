@@ -9,6 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Item32AData {
+
     private String reportingDate;
     private Long totalNrTrades;
     private Long totalNrReports;

@@ -1,7 +1,8 @@
 package com.sixgroup.refit.observability.processor;
 
-import com.sixgroup.refit.observability.model.Item32CRow;
 import org.springframework.batch.item.ItemProcessor;
+
+import com.sixgroup.refit.observability.model.Item32CRow;
 
 public class Item32CProcessor implements ItemProcessor<Item32CRow, Item32CRow> {
 

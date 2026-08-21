@@ -1,9 +1,7 @@
 package com.sixgroup.refit.observability.sql;
 
-import com.sixgroup.refit.observability.model.Item32CRow;
-import com.sixgroup.refit.observability.processor.Item32CProcessor;
-import com.sixgroup.refit.observability.reader.Item32CReader;
-import com.sixgroup.refit.observability.writer.Item32CWriter;
+import javax.sql.DataSource;
+
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
@@ -20,7 +18,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.Resource;
 import org.springframework.transaction.PlatformTransactionManager;
 
-import javax.sql.DataSource;
+import com.sixgroup.refit.observability.model.Item32CRow;
+import com.sixgroup.refit.observability.processor.Item32CProcessor;
+import com.sixgroup.refit.observability.reader.Item32CReader;
+import com.sixgroup.refit.observability.writer.Item32CWriter;
 
 @Configuration
 @ConditionalOnBean(name = "kudurc-ds")

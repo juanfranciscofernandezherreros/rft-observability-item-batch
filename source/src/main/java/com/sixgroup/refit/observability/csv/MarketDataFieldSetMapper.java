@@ -5,6 +5,7 @@ import org.springframework.batch.item.file.transform.FieldSet;
 import org.springframework.validation.BindException;
 
 public class MarketDataFieldSetMapper implements FieldSetMapper<MarketDataPojo> {
+
     @Override
     public MarketDataPojo mapFieldSet(FieldSet fieldSet) throws BindException {
         MarketDataPojo market_data = new MarketDataPojo();

@@ -1,0 +1,129 @@
+server:
+  port: 8080
+  error:
+    include-message: always
+
+spring:
+  main:
+    banner-mode: off
+  application:
+    name: rft-clientarea-db-load-api
+
+  #=========================
+  # Db configuration
+  #=========================
+  datasource:
+    sql:
+      url: "jdbc:h2:mem:batchdb;DB_CLOSE_DELAY=-1;MODE=MSSQLServer"
+      driver-class-name: org.h2.Driver
+      username: sa
+      password: ""
+      hikari:
+        minimum-idle: 5
+        maximum-pool-size: 20
+        idle-timeout: 180_000
+        max-lifetime: 900_000
+        connection-timeout: 30_000
+        validation-timeout: 10_000
+        pool-name: sql_server_client_area_pool
+
+    impala:
+      url: jdbc:h2:mem:impaladb;DB_CLOSE_DELAY=-1
+      driver-class-name: org.h2.Driver
+      username: sa
+      password: ""
+
+      hikari:
+        minimum-idle: 5
+        maximum-pool-size: 20
+        idle-timeout: 180_000
+        max-lifetime: 900_000
+        connection-timeout: 30_000
+        validation-timeout: 10_000
+        pool-name: impala_client_area_pool
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.SQLServerDialect
+        legacy_limit_handler: true
+
+  #=========================
+  # Batch configuration
+  #=========================
+  batch:
+    jdbc:
+      initialize-schema: never
+      platform: h2
+    job:
+      enabled: false
+
+#=========================
+# actuator configuration
+#=========================
+management:
+  endpoints:
+    web:
+      base-path: "/actuator"
+      exposure:
+        include: "*"
+    enabled-by-default: true
+  server:
+    port: 9080
+  endpoint:
+    health:
+      show-details: always
+
+#=========================
+# OpenAPI/Swagger configuration
+#=========================
+springdoc:
+  packagesToScan: com.sixgroup
+  pathsToMatch: /**
+  swagger-ui:
+    config-url: /v3/api-docs/swagger-config
+    url: /v3/api-docs
+
+#=========================
+# Custom configuration
+#=========================
+fate:
+  backend:
+    jwt-secret: JWTSuperSecretKey!
+    jwt-expiration: 604800000
+
+migrations:
+  configs:
+    "trade-status":
+      source-schema: ""
+      source-table: "trade_status_switch_enh"
+      target-schema: ""
+      target-table: "custom_trade_status_switch_enh"
+      fetch-size: 1000
+      chunk-size: 1000
+    "impala-opr-data-base":
+      sourceSchema: ""
+      sourceTable: "opr_data"
+      targetSchema: ""
+      targetTable: "dqi_opr_data_base"
+      chunkSize: 10000
+      fetchSize: 25000
+    "sum-counterparty-load":
+      sourceSchema: ""
+      sourceTable: "dqi_opr_data_base"
+      targetSchema: ""
+      targetTable: "custom_opr_data_more_less_open"
+      chunkSize: 10000
+      fetchSize: 25000
+    "summary-open-status-load":
+      sourceSchema: ""
+      sourceTable: "opr_data"
+      targetSchema: ""
+      targetTable: "custom_opr_data_summary_sum"
+      chunkSize: 10000
+      fetchSize: 25000
+
+api:
+  regulation: eu
+  env: prod
+  prefixDatabase: emir_refit

@@ -1,14 +1,16 @@
 package com.sixgroup.refit.observability.config;
 
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Getter
 @Setter
 @ConfigurationProperties("component-config.item32")
 public class Item32Properties {
+
     @NotNull
     private String trCode;
     @NotNull
@@ -35,6 +37,7 @@ public class Item32Properties {
     @Getter
     @Setter
     public static class Item32BProperties {
+
         @NotNull
         private String fileNamePattern;
     }
@@ -42,6 +45,7 @@ public class Item32Properties {
     @Getter
     @Setter
     public static class Item32C {
+
         @NotNull
         private String fileNamePattern;
 

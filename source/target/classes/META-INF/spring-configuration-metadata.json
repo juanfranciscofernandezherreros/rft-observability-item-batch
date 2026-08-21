@@ -1,0 +1,135 @@
+{
+  "groups": [
+    {
+      "name": "component-config.item32",
+      "type": "com.sixgroup.refit.observability.config.Item32Properties",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties"
+    },
+    {
+      "name": "component-config.item32.item32-aproperties",
+      "type": "com.sixgroup.refit.observability.config.Item32Properties$Item32AProperties",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties",
+      "sourceMethod": "getItem32Aproperties()"
+    },
+    {
+      "name": "component-config.item32.item32-b-properties",
+      "type": "com.sixgroup.refit.observability.config.Item32Properties$Item32BProperties",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties",
+      "sourceMethod": "getItem32BProperties()"
+    },
+    {
+      "name": "component-config.item32.item32-c",
+      "type": "com.sixgroup.refit.observability.config.Item32Properties$Item32C",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties",
+      "sourceMethod": "getItem32C()"
+    },
+    {
+      "name": "component-config.kududb",
+      "type": "com.sixgroup.refit.observability.config.DatasourceSchemaProperties",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceSchemaProperties"
+    },
+    {
+      "name": "spring.datasource.kududb",
+      "type": "com.sixgroup.refit.observability.config.DatasourceKuduProperties",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceKuduProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "component-config.item32.item32-aproperties.file-name-pattern",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties$Item32AProperties"
+    },
+    {
+      "name": "component-config.item32.item32-aproperties.initial-total-trades-all",
+      "type": "java.lang.Long",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties$Item32AProperties"
+    },
+    {
+      "name": "component-config.item32.item32-aproperties.initial-total-trades-new",
+      "type": "java.lang.Long",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties$Item32AProperties"
+    },
+    {
+      "name": "component-config.item32.item32-b-properties.file-name-pattern",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties$Item32BProperties"
+    },
+    {
+      "name": "component-config.item32.item32-c.customer-account-pattern",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties$Item32C"
+    },
+    {
+      "name": "component-config.item32.item32-c.file-name-pattern",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties$Item32C"
+    },
+    {
+      "name": "component-config.item32.item32-c.regulator-account-pattern",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties$Item32C"
+    },
+    {
+      "name": "component-config.item32.regulation-reference",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties"
+    },
+    {
+      "name": "component-config.item32.tr-code",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.Item32Properties"
+    },
+    {
+      "name": "component-config.kududb.account-mng",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceSchemaProperties"
+    },
+    {
+      "name": "component-config.kududb.control-refit-schema",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceSchemaProperties"
+    },
+    {
+      "name": "component-config.kududb.transc-schema",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceSchemaProperties"
+    },
+    {
+      "name": "spring.datasource.kududb.ddl-auto",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceKuduProperties"
+    },
+    {
+      "name": "spring.datasource.kududb.dialect",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceKuduProperties"
+    },
+    {
+      "name": "spring.datasource.kududb.driver-class-name",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceKuduProperties"
+    },
+    {
+      "name": "spring.datasource.kududb.jdbc-url",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceKuduProperties"
+    },
+    {
+      "name": "spring.datasource.kududb.password",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceKuduProperties"
+    },
+    {
+      "name": "spring.datasource.kududb.persistence-unit",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceKuduProperties"
+    },
+    {
+      "name": "spring.datasource.kududb.username",
+      "type": "java.lang.String",
+      "sourceType": "com.sixgroup.refit.observability.config.DatasourceKuduProperties"
+    }
+  ],
+  "hints": []
+}

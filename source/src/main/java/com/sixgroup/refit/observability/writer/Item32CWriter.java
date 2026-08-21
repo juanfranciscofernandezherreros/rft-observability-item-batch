@@ -1,17 +1,20 @@
 package com.sixgroup.refit.observability.writer;
 
-import com.sixgroup.refit.observability.model.Item32CRow;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.batch.item.Chunk;
-import org.springframework.batch.item.ItemWriter;
-import org.springframework.jdbc.core.JdbcTemplate;
-
-import javax.sql.DataSource;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.batch.item.Chunk;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.sixgroup.refit.observability.model.Item32CRow;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Item32CWriter implements ItemWriter<Item32CRow> {

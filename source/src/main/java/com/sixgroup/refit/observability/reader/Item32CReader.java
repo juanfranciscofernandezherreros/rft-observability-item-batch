@@ -1,10 +1,11 @@
 package com.sixgroup.refit.observability.reader;
 
-import com.sixgroup.refit.observability.model.Item32CRow;
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DelimitedLineTokenizer;
 import org.springframework.core.io.Resource;
+
+import com.sixgroup.refit.observability.model.Item32CRow;
 
 public class Item32CReader extends FlatFileItemReader<Item32CRow> {
 

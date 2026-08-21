@@ -1,7 +1,9 @@
 package com.sixgroup.refit.observability.config;
 
-import jakarta.persistence.EntityManagerFactory;
-import lombok.RequiredArgsConstructor;
+import java.util.HashMap;
+
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -15,15 +17,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import javax.sql.DataSource;
-import java.util.HashMap;
+import jakarta.persistence.EntityManagerFactory;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @ConditionalOnProperty(prefix = "spring.datasource.kududb", name = "jdbc-url")
 @EnableJpaRepositories(
-    entityManagerFactoryRef = "kudurc-em",
-    transactionManagerRef = "kudurc-trm",
-    basePackages = "com.sixgroup.refit.observability.item37.creator.modules.infrastructure.repository.kudu"
+        entityManagerFactoryRef = "kudurc-em", transactionManagerRef = "kudurc-trm", basePackages = "com.sixgroup.refit.observability.item37.creator.modules.infrastructure.repository.kudu"
 )
 @EnableTransactionManagement
 @RequiredArgsConstructor
@@ -34,11 +34,11 @@ public class DatasourceKuduConfig {
     @Bean("kudurc-ds")
     public DataSource kuduDataSource() {
         return DataSourceBuilder.create()
-            .url(properties.getJdbcUrl())
-            .username(properties.getUsername())
-            .password(properties.getPassword())
-            .driverClassName(properties.getDriverClassName())
-            .build();
+                .url(properties.getJdbcUrl())
+                .username(properties.getUsername())
+                .password(properties.getPassword())
+                .driverClassName(properties.getDriverClassName())
+                .build();
     }
 
     @Bean("kudurc-em")
@@ -47,10 +47,10 @@ public class DatasourceKuduConfig {
         objectObjectHashMap.put(DatasourceKuduProperties.HIBERNATE_DIALECT, properties.getDialect());
         objectObjectHashMap.put(DatasourceKuduProperties.HIBERNATE_DDL_AUTO, properties.getDdlAuto());
         return builder
-            .dataSource(dataSource)
-            .persistenceUnit(properties.getPersistenceUnit())
-            .properties(objectObjectHashMap)
-            .build();
+                .dataSource(dataSource)
+                .persistenceUnit(properties.getPersistenceUnit())
+                .properties(objectObjectHashMap)
+                .build();
     }
 
     @Bean("kudurc-trm")
