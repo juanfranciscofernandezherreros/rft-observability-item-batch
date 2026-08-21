@@ -1,5 +1,7 @@
 package com.sixgroup.refit.observability.sql;
 
+import com.sixgroup.refit.observability.csv.Item32CCsvConverter;
+import com.sixgroup.refit.observability.model.Item32CRow;
 import com.sixgroup.refit.observability.processor.Item32CProcessor;
 import com.sixgroup.refit.observability.reader.Item32CReader;
 import com.sixgroup.refit.observability.writer.Item32CWriter;
@@ -11,41 +13,52 @@ import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.ItemWriter;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
 import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
 @Configuration
+@ConditionalOnBean(name = "kudurc-ds")
 public class SqlBatchConfig {
 
     @Bean
-    public ItemReader<Resource> item32cReader() {
-        return new Item32CReader();
+    public Item32CCsvConverter item32cCsvConverter() {
+        return new Item32CCsvConverter();
     }
 
     @Bean
-    public ItemProcessor<Resource, Resource> item32cProcessor() {
+    public ItemReader<Item32CRow> item32cReader(Item32CCsvConverter converter) {
+        return new Item32CReader(converter.convertToCsv());
+    }
+
+    @Bean
+    public ItemProcessor<Item32CRow, Item32CRow> item32cProcessor() {
         return new Item32CProcessor();
     }
 
     @Bean
-    public ItemWriter<Resource> item32cWriter(DataSource dataSource) {
-        return new Item32CWriter(dataSource);
+    public ItemWriter<Item32CRow> item32cWriter(
+            @Qualifier("kudurc-ds") DataSource dataSource,
+            @Value("${item32c.target-table:emir_refit_mbt_account_mng.regu_report}") String targetTable) {
+        return new Item32CWriter(dataSource, targetTable);
     }
 
     @Bean
     public Step item32cStep(
             JobRepository jobRepository,
             PlatformTransactionManager transactionManager,
-            ItemReader<Resource> item32cReader,
-            ItemProcessor<Resource, Resource> item32cProcessor,
-            ItemWriter<Resource> item32cWriter) {
+            ItemReader<Item32CRow> item32cReader,
+            ItemProcessor<Item32CRow, Item32CRow> item32cProcessor,
+            ItemWriter<Item32CRow> item32cWriter,
+            @Value("${item32c.chunk-size:100}") int chunkSize) {
 
         return new StepBuilder("item32cStep", jobRepository)
-                .<Resource, Resource>chunk(1, transactionManager)
+                .<Item32CRow, Item32CRow>chunk(chunkSize, transactionManager)
                 .reader(item32cReader)
                 .processor(item32cProcessor)
                 .writer(item32cWriter)
