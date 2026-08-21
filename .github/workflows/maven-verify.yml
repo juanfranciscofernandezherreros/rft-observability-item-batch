@@ -1,0 +1,27 @@
+name: Maven Verify
+
+on:
+  pull_request:
+    branches:
+      - ci/verify-item32c
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: source
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+          cache-dependency-path: source/pom.xml
+
+      - name: Maven verify
+        run: mvn -B clean verify
