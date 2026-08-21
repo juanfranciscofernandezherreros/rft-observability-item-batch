@@ -22,7 +22,7 @@ class Item32CCsvConverterTest {
         String csv = converter.convertToCsv().getContentAsString(StandardCharsets.UTF_8);
 
         assertThat(csv).contains("\"TU,FR\"");
-        assertThat(csv).contains(",\"\",false,");
-        assertThat(csv).contains("ACTIVE,\\N");
+        assertThat(csv).contains(",\"\",\"false\",");
+        assertThat(csv).contains("\"ACTIVE\",\\N");
     }
 }
